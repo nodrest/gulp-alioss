@@ -1,4 +1,4 @@
-// PLUGIN_NAME: gulp-oss
+// PLUGIN_NAME: gulp-aliyunoss
 const PLUGIN_NAME = 'gulp-oss';
 
 var path = require('path');
@@ -17,13 +17,6 @@ function oss(option) {
     if(!option.bucket){
         throw new PluginError(PLUGIN_NAME, 'Missing option.bucket!');
     }
-
-    //var ossClient = new ALY.OSS({
-    //    accessKeyId: option.accessKeyId,
-    //    secretAccessKey: option.secretAccessKey,
-    //    endpoint: option.endpoint,
-    //    apiVersion: option.apiVersion
-    //});
 
     var version = Moment().format('YYMMDDHHmm');
 
