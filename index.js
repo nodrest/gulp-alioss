@@ -6,7 +6,7 @@ var through2 = require('through2');
 var PluginError = require('gulp-util').PluginError;
 var colors = require('gulp-util').colors;
 var log = require('gulp-util').log;
-var ALY = require('aliyun-sdk');
+var OSS = require('ali-oss').Wrapper;
 var Moment = require('moment');
 var Q = require('q');
 
@@ -44,31 +44,17 @@ function oss(option) {
                 + path.relative(file.base, file.path);
         };
         var uploadFile = function(fileKey){
-            ossClient = new ALY.OSS({
+            oss = new OSS({
                 accessKeyId: option.accessKeyId,
-                secretAccessKey: option.secretAccessKey,
+                accessKeySecret: option.accessKeySecret,
                 endpoint: option.endpoint,
-                apiVersion: option.apiVersion
+                bucket: option.bucket
             });
-            ossClient.putObject({
-                    Bucket: option.bucket,
-                    Key: fileKey,
-                    Body: file.contents,
-                    AccessControlAllowOrigin: '',
-                    CacheControl: 'no-cache',
-                    ContentDisposition: '',
-                    ContentEncoding: 'utf-8',
-                    ServerSideEncryption: 'AES256',
-                    Expires: Moment().unix()
-                }, function (err, data) {
-                    if (err) {
-                        console.log('error:', err);
-                        log('ERR:', colors.red(fileKey + "\t" + err.code));
-                    }else{
-                        log('OK:', colors.green(fileKey));
-                    }
-                }
-            );
+            oss.put(fileKey,file.contents).then(function (val) {
+              log('OK:', colors.green(fileKey));
+            }).catch (function (err) {
+              log('ERR:', colors.red(fileKey + "\t" + err.code));
+            });
         };
         Q.fcall(getFileKey).then(uploadFile);
         this.push(file);
