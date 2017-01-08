@@ -1,14 +1,15 @@
 var gulp = require('gulp');
-var oss = require('gulp-oss');
-
-gulp.task('upload_to_oss', function(){
-    var options = {
-        accessKeyId: '*******',
-        secretAccessKey: '*******',
-        endpoint: 'http://oss-cn-***.aliyuncs.com',
-        apiVersion: '2013-10-15',
-        prefix: 'assets/js',
-        bucket: 'test'
-    };
-    return gulp.src(['./js/**/*']).pipe(oss(options));
+var oss = require('gulp-aliyunoss');
+gulp.task('oss', function(){
+    return gulp.src([
+        './dist/client/app/*',
+        './dist/client/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+      ], { base: 'dist/client' })
+      .pipe(plugins.alioss({
+          accessKeyId: '***',
+          accessKeySecret: '******',
+          endpoint: 'oss-cn-hangzhou-internal.aliyuncs.com',
+          bucket: 'photo',
+          prefix: 'serve'
+      }));
 });
