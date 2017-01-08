@@ -1,15 +1,22 @@
 # gulp-aliyunoss
 
-Aliyun Oss Client for Gulp,升级版，改用ali-oss
+> fork from https://github.com/hackrose/gulp-alioss
+> 升级版，改用ali-oss
+
+Aliyun Oss Client for Gulp
 
 ### Install
 ``` bash
 npm install gulp-aliyunoss
 ```
+
 ### DEMO
 ``` node
 var gulp = require('gulp');
 var oss = require('gulp-aliyunoss');
+var gulpLoadPlugins = require('gulp-load-plugins');
+var plugins = gulpLoadPlugins();
+
 gulp.task('oss', function(){
     return gulp.src([
         './dist/client/app/*',
@@ -24,6 +31,7 @@ gulp.task('oss', function(){
       }));
 });
 ```
+
 ### 操作结果
 
 ``` bash

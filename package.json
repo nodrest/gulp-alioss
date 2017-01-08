@@ -1,6 +1,6 @@
 {
   "name": "gulp-aliyunoss",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A plugin for Gulp that uploads files to Aliyun OSS",
   "main": "index.js",
   "scripts": {
