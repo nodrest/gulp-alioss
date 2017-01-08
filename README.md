@@ -1,27 +1,27 @@
-# gulp-oss
-Aliyun Oss Client for Gulp
+# gulp-aliyunoss
+
+Aliyun Oss Client for Gulp,升级版，改用ali-oss
 
 ### Install
 ``` bash
-npm install gulp-alioss
+npm install gulp-aliyunoss
 ```
 ### DEMO
 ``` node
 var gulp = require('gulp');
-var oss = require('gulp-alioss');
+var oss = require('gulp-aliyunoss');
 gulp.task('oss', function(){
-    var options = {
-        accessKeyId: '********',
-        secretAccessKey: '*********',
-        endpoint: 'http://oss-cn-***.aliyuncs.com',
-        apiVersion: '2013-10-15',
-        prefix: 'assets/js', //for no prefix: prefix: ''
-        bucket: 'test'
-    };
-    //./js/a.js -> <prefix>/a.js
-    // ......
-    //./js/b/a.js -> <prefix>/b/a.js
-    return gulp.src(['./js/**/*']).pipe(oss(options));
+    return gulp.src([
+        './dist/client/app/*',
+        './dist/client/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+      ], { base: 'dist/client' })
+      .pipe(plugins.alioss({
+          accessKeyId: '***',
+          accessKeySecret: '******',
+          endpoint: 'oss-cn-hangzhou-internal.aliyuncs.com',
+          bucket: 'photo',
+          prefix: 'serve'
+      }));
 });
 ```
 ### 操作结果
